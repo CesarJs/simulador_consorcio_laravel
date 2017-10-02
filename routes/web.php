@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/buscar', 'CarsController@buscar')->name('buscar');
+Route::get('/valoresIndex', 'CarsController@retornaValoresLimite')->name('rtnValores');
 
 
 Route::group(['prefix' => 'cars','middleware'=>'auth','as' => 'cars.'], function(){

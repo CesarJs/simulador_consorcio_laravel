@@ -17,7 +17,7 @@
 			</div>
 			<div class="form-group">
 				{!! Form::label('credito','Crédito:') !!}
-				{!! Form::text('credito', null, ['class'=>'form-control moneyMask']) !!}
+				{!! Form::text('credito', number_format($car->credito,2,',','.'), ['class'=>'form-control moneyMask']) !!}
 			</div>
 			<hr>
 			<div class="row">
@@ -28,7 +28,7 @@
 					<div class="form-group col-md-6">
 
 						{!! Form::label('primeira_parcela_pf','Primeira Parcela:') !!}
-						{!! Form::text('primeira_parcela_pf', null, ['class'=>'form-control moneyMask']) !!}
+						{!! Form::text('primeira_parcela_pf', number_format($car->primeira_parcela_pf,2,',','.'), ['class'=>'form-control moneyMask']) !!}
 					</div>
 				</div>
 				<div class="row">
@@ -41,7 +41,7 @@
 						</div>
 						<div class="form-group col-md-6">
 							
-							{!! Form::text('condicao_um[\'valor_parcela\']', isset($car->um_pf->valor_parcela)?$car->um_pf->valor_parcela:null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
+							{!! Form::text('condicao_um[\'valor_parcela\']', isset($car->um_pf->valor_parcela)?number_format($car->um_pf->valor_parcela,2,',','.'):null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
 						</div>
 
 					</div>
@@ -57,7 +57,7 @@
 						</div>
 						<div class="form-group col-md-6">
 	
-							{!! Form::text('condicao_dois[\'valor_parcela\']', isset($car->dois_pf->valor_parcela)?$car->dois_pf->valor_parcela:null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
+							{!! Form::text('condicao_dois[\'valor_parcela\']', isset($car->dois_pf->valor_parcela)?number_format($car->dois_pf->valor_parcela,2,',','.'):null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
 						</div>
 
 					</div>
@@ -73,7 +73,7 @@
 						</div>
 						<div class="form-group col-md-6">
 	
-							{!! Form::text('condicao_tres[\'valor_parcela\']', isset($car->tres_pf->valor_parcela)?$car->tres_pf->valor_parcela:null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
+							{!! Form::text('condicao_tres[\'valor_parcela\']', isset($car->tres_pf->valor_parcela)?number_format($car->tres_pf->valor_parcela,2,',','.'):null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
 						</div>
 
 					</div>
@@ -90,7 +90,7 @@
 					
 					<div class="form-group col-md-6">
 						{!! Form::label('primeira_parcela_pj','Primeira Parcela:') !!}
-						{!! Form::text('primeira_parcela_pj', null, ['class'=>'form-control moneyMask']) !!}
+						{!! Form::text('primeira_parcela_pj', number_format($car->primeira_parcela_pj,2,',','.'), ['class'=>'form-control moneyMask']) !!}
 					</div>
 				</div>
 				<div class="row">
@@ -103,7 +103,7 @@
 						</div>
 						<div class="form-group col-md-6">
 	
-							{!! Form::text('condicao_um_pj[\'valor_parcela\']', isset($car->um_pj->valor_parcela)?$car->um_pj->valor_parcela:null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
+							{!! Form::text('condicao_um_pj[\'valor_parcela\']', isset($car->um_pj->valor_parcela)?number_format($car->um_pj->valor_parcela,2,',','.'):null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
 						</div>
 
 					</div>
@@ -119,7 +119,7 @@
 						</div>
 						<div class="form-group col-md-6">
 	
-							{!! Form::text('condicao_dois_pj[\'valor_parcela\']', isset($car->dois_pj->valor_parcela)?$car->dois_pj->valor_parcela:null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
+							{!! Form::text('condicao_dois_pj[\'valor_parcela\']', isset($car->dois_pj->valor_parcela)?number_format($car->dois_pj->valor_parcela,2,',','.'):null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
 						</div>
 
 					</div>
@@ -135,7 +135,7 @@
 						</div>
 						<div class="form-group col-md-6">
 	
-							{!! Form::text('condicao_tres_pj[\'valor_parcela\']', isset($car->tres_pj->valor_parcela)?$car->tres_pj->valor_parcela:null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
+							{!! Form::text('condicao_tres_pj[\'valor_parcela\']', isset($car->tres_pj->valor_parcela)?number_format($car->tres_pj->valor_parcela,2,',','.'):null, ['class'=>'form-control moneyMask','placeholder'=>'Digite o valor da parcela']) !!}
 						</div>
 
 					</div>

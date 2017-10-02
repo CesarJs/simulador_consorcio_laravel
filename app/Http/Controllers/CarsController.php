@@ -163,9 +163,35 @@ class CarsController extends Controller
                 # code...
                 break;
         }
-
-        return view('resultados',compact('resultados'));
         
+        return view('resultados',compact('resultados'),['categoria'=>$data['categoria']]);
+        
+    }
+    public function retornaValoresLimite(Request $request){
+        $data = $request->all();
+        $cars = Car::all();
+        switch ($data['keyTipo']) {
+            case 'credito':
+                $rtn = [
+                    'min'=>$cars->where('category_id',$data['cat'])->min('credito'),
+                    'max'=>$cars->where('category_id',$data['cat'])->max('credito')
+                    ];
+                break;
+            case 'parcela':
+                $rtn =[
+                    'min' => $cars->where('category_id',$data['cat'])->min('primeira_parcela_pj'),
+                    'max' => $cars->where('category_id',$data['cat'])->max('primeira_parcela_pj')
+                ];
+                break;
+            default:
+                # code...
+                break;
+        }
+        if(isset($rtn['min'])){}else{$rtn['min']=0;}
+        if(isset($rtn['max'])){}else{$rtn['max']=500000;}
+        
+
+        echo json_encode(["status"=>true,"msg"=>'Valores encontrados!', "rtn"=> $rtn]);exit; 
     }
     public function find($key,$busca) //busca no adminitrador
     {

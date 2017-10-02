@@ -5,9 +5,9 @@
 <div class="flex-center position-ref full-height">
     <div class="content">
 
-        <form action="/buscar" method="GET" class="form">
+   
             <div class="col-md-6 col-md-offset-3">
-                <form id="frmSimulador" action="/resultados" method="post">
+                <form id="frmSimulador" action="/buscar" method="GET">
                     <div class="simulador-box">
                         <div class="contents">
                             <h3>Simulador Online</h3>
@@ -63,7 +63,7 @@
 
                             <div class="row">
                                 <p>ARRASTE E ESCOLHA O VALOR <span id="optionKey">DO CRÉDITO</span></p>
-                                <div class="row" >
+                                <div class="row" id="contentRanger">
                                     <div>
                                         <input type="text" id="range" value="" name="range" />
                                     </div>
@@ -123,7 +123,7 @@
                     </div>
                 </form>
             </div>
-        </form>
+      
 
     </div>
 </div>
@@ -218,16 +218,25 @@ function escolhaCategory(tipo){
             // statements_def
             break;
     }
+             var TempInterva = setInterval(function() {             
+            setvalor();
+            clearTimeout(TempInterva);
+            }, 50);
 }
 function escolhaKey(tipo){
     switch (tipo) {
         case 'credito':
+            $('#loaderBusca').html('<i class="fa fa-spinner fa-spin fa-fw"></i>');
+            $('#loaderBusca').css({backgroundColor: 'honeydew'});
             $('#lbl-credito').removeClass('btn-default');
             $('#lbl-credito').addClass('btn-primary');
 
             $('#lbl-parcela').removeClass('btn-primary');
             $('#lbl-parcela').addClass('btn-default');
             // statements_1
+        
+
+        //requisição Ajax do banco
             break;
         case 'parcela':
 
@@ -242,7 +251,73 @@ function escolhaKey(tipo){
             // statements_def
             break;
     }
+           var TempInterva = setInterval(function() {             
+            setvalor();
+            clearTimeout(TempInterva);
+            }, 50);
 }
 
+function setRanger(min,max){
+        $(function () {
+
+        $("#range").ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: min,
+            max: max,
+            from: (min +200),
+            to: (max -100),
+            type: 'double',
+            step: 1,
+            prefix: "R$: ",
+            grid: true
+        });
+
+    });
+    }
+
+function setvalor(){
+
+    cat = categoriaSelecionada = $("input[name='categoria']:checked").val();
+    tipo = categoriaSelecionada = $("input[name='keyTipo']:checked").val();
+     var request = $.ajax({
+                    method:"GET",
+                    url:"/valoresIndex?keyTipo="+tipo+"&cat="+cat,
+                    dataType:"json"
+                }); 
+
+                request.done(function(e){
+                   
+                    if (e.status) {
+
+                        $('#msgError').html('');
+                        $('#loaderBusca').html('<i class="fa fa-check"></i>');
+                        $('#contentRanger').html('');
+                        $('#contentRanger').html('<div>                                        <input type="text" id="range" value="" name="range" />                                    </div>');
+
+                        setRanger(e.rtn.min,e.rtn.max);
+                                                
+                   
+
+                    }else{
+                       /* $('#msgError').html('<p class="alert alert-danger text-danger">'+e.msg+'</p>');
+                        $('#loaderBusca').css({backgroundColor: '#eee'});
+                        $('#loaderBusca').html('<i class="fa fa-search"></i>');*/
+
+                    }    
+
+                });
+                request.fail(function(e){
+                        $('#loaderBusca').html('<i class="fa fa-close"></i>');
+                    
+                    console.log("Erro main js line75!");
+                    console.log(e);
+                    
+                });
+}
+
+$(document).ready(function() {
+       $('#lblTipoImovel').click();
+});
 </script>
 @endsection
