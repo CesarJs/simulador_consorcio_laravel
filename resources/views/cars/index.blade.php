@@ -132,7 +132,7 @@
 		            	$('#tableResults').html('');
 		            	jQuery.each( e.rtn, function( i, val ) {
 		            		console.log(val);
-		            		msg = '<tr><td>XX</td> <td>'+val.descricao_do_bem+'</td> <td>'+val.category.name+'</td> <td>'+val.provider.name+'</td> <td>'+val.credito+'</td> <td><a href="/cars/'+val.id+'/edit" class="btn btn-primary btn-small">';
+		            		msg = '<tr><td>'+val.codigo+'</td> <td>'+val.descricao_do_bem+'</td> <td>'+val.category.name+'</td> <td>'+val.provider.name+'</td> <td>'+val.credito+'</td> <td><a href="/cars/'+val.id+'/edit" class="btn btn-primary btn-small">';
 							msg+='											Editar';
 
 							msg+='										</a> <a href="/cars/destroy?id='+val.id+'" class="btn btn-warning btn-small">';

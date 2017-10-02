@@ -13,8 +13,16 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="/font/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/node_modules/noUISlider/nouislider.min.css">
-    <script src="/node_modules/noUISlider/nouislider.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+
+
+    <link rel="stylesheet" href="/node_modules/rangeSlider/css/normalize.css" />
+    <link rel="stylesheet" href="/node_modules/rangeSlider/css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="/node_modules/rangeSlider/css/ion.rangeSlider.skinHTML5.css" />
+ 
+
+    
 
 
 </head>
@@ -79,7 +87,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="/node_modules/vanilla-masker/lib/vanilla-masker.js"></script>
 

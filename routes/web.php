@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/buscar', 'CarsController@buscar')->name('buscar');
+
 
 Route::group(['prefix' => 'cars','middleware'=>'auth','as' => 'cars.'], function(){
 	Route::get('/', 'CarsController@index')->name('index');

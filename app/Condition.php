@@ -12,4 +12,5 @@ class Condition extends Model
     ];
 
     
+    
 }

@@ -4,10 +4,53 @@
 
 <div class="flex-center position-ref full-height">
     <div class="content">
-
-        <form action="/buscar" method="GET" class="form">
-            <div class="col-md-6 col-md-offset-3">
-                <form id="frmSimulador" action="/resultados" method="post">
+            <div class="col-md-7">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div id="msgError" class="row"></div>
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table id="datable_1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Descrição</th> 
+                                            <th>Provider *</th> 
+                                            <th>Crédito</th> 
+                                            <th>Codição Pessoa Fisica</th>
+                                            <th>Codição Pessoa Juridica</th>
+                                        </tr>
+                                    </thead> 
+                                    <tfoot>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Descrição</th> 
+                                            <th>Provider *</th> 
+                                            <th>Crédito</th> 
+                                            <th>Codição Pessoa Fisica</th>
+                                            <th>Codição Pessoa Juridica</th>
+                                        </tr>
+                                    </tfoot> 
+                                    <tbody id="tableResults">
+                                        @foreach($resultados as $consorcio)
+                                        <tr>
+                                            <td>EC</td> 
+                                            <td>60% HB20 COMFORT 1.0 FLEX 12V</td> 
+                                            <td>Veiculos</td> 
+                                            <td>Porto seguro</td> 
+                                            <td>24.822,80</td> 
+                                            <td></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">      
+                <form id="simulador" action="/resultados" method="post">
                     <div class="simulador-box">
                         <div class="contents">
                             <h3>Simulador Online</h3>
@@ -71,49 +114,7 @@
                        
                             </div>
                             <br>
-                            <div id="row">
-                                <div class="form uppercase">
-                                    <div class="alert alert-danger" id="dvErro" style="display: none;">
-                                        <div class="aviso">Mensagem</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label>Informe seu nome</label>
-                                                <input class="form-control" id="txtNome" required name="inputNome" placeholder="Nome" type="text">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label>E-mail</label>
-                                                <input class="form-control" name="inputEmail"  id="txtEmail" placeholder="Email" type="email">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>DDD + Telefone</label>
-                                                <input class="form-control" name="inputTelefone" maxlength="15" id="txtTel" placeholder="Telefone" onkeypress='VMasker($(this)).maskPattern("(99) 99999-9999");' type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>CEP</label>
-                                                <input class="form-control" name="inputCEP" maxlength="9" id="txtCep" placeholder="CEP" onkeypress='VMasker($(this)).maskPattern("99999-999");' type="text">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <input name="inputContato" id="chkReceberContato" checked="checked" type="checkbox">
-                                            <label>Quero solicitar contato de um consultor</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div align="center">
                                 <button class="btn btn-primary btn-block" >Simular Consórcio</button>
                             </div>
@@ -122,8 +123,8 @@
                         </div>
                     </div>
                 </form>
+    
             </div>
-        </form>
 
     </div>
 </div>

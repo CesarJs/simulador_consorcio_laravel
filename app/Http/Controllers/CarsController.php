@@ -55,23 +55,24 @@ class CarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $data=$request->all();
         if(isset($data['_token'])){unset($data['_token']);}
 
         //formatendo valores para float
-        if(isset($data['credito'])){$data['credito']= str_replace(',', '', str_replace('.', '', $data['credito']));}
-        if(isset($data['primeira_parcela_pf'])){$data['primeira_parcela_pf']= str_replace(',', '', str_replace('.', '', $data['primeira_parcela_pf']));}
-        if(isset($data['primeira_parcela_pj'])){$data['primeira_parcela_pj']= str_replace(',', '', str_replace('.', '', $data['primeira_parcela_pj']));}
+        if(isset($data['credito'])){$data['credito']= $this->rtnFloat($data['credito']);}
+        if(isset($data['primeira_parcela_pf'])){$data['primeira_parcela_pf']=$this->rtnFloat($data['primeira_parcela_pf']);}
+        if(isset($data['primeira_parcela_pj'])){$data['primeira_parcela_pj']=$this->rtnFloat($data['primeira_parcela_pj']);}
         //condicoes valores
-        if(isset($data['condicao_um']['\'valor_parcela\''])){$data['condicao_um']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_um']['\'valor_parcela\'']));}
-        if(isset($data['condicao_dois']['\'valor_parcela\''])){$data['condicao_dois']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_dois']['\'valor_parcela\'']));}
-        if(isset($data['condicao_tres']['\'valor_parcela\''])){$data['condicao_tres']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_tres']['\'valor_parcela\'']));}
+        if(isset($data['condicao_um']['\'valor_parcela\''])){$data['condicao_um']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_um']['\'valor_parcela\'']);}
+        if(isset($data['condicao_dois']['\'valor_parcela\''])){$data['condicao_dois']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_dois']['\'valor_parcela\'']);}
+        if(isset($data['condicao_tres']['\'valor_parcela\''])){$data['condicao_tres']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_tres']['\'valor_parcela\'']);}
 
-        if(isset($data['condicao_um_pj']['\'valor_parcela\''])){$data['condicao_um_pj']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_um_pj']['\'valor_parcela\'']));}
-        if(isset($data['condicao_dois_pj']['\'valor_parcela\''])){$data['condicao_dois_pj']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_dois_pj']['\'valor_parcela\'']));}
-        if(isset($data['condicao_tres_pj']['\'valor_parcela\''])){$data['condicao_tres_pj']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_tres_pj']['\'valor_parcela\'']));}
+        if(isset($data['condicao_um_pj']['\'valor_parcela\''])){$data['condicao_um_pj']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_um_pj']['\'valor_parcela\'']);}
+        if(isset($data['condicao_dois_pj']['\'valor_parcela\''])){$data['condicao_dois_pj']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_dois_pj']['\'valor_parcela\'']);}
+        if(isset($data['condicao_tres_pj']['\'valor_parcela\''])){$data['condicao_tres_pj']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_tres_pj']['\'valor_parcela\'']);}
 
 
         // condicao 1
@@ -146,11 +147,32 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function find($key,$busca)
+    public function buscar(Request $request){
+        $data = $request->all();
+        $valores = explode(';', $data['range']);
+        switch ($data['keyTipo']) {
+            case 'credito':
+                # code...
+                $resultados = Car::whereBetween('credito', $valores)->where('category_id',$data['categoria'])->get();
+                break;
+            case 'parcela':
+                # code...
+                $resultados = Car::whereBetween('primeira_parcela_pf', $valores)->where('category_id',$data['categoria'])->get();
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return view('resultados',compact('resultados'));
+        
+    }
+    public function find($key,$busca) //busca no adminitrador
     {
         //
         $rtn = Car::where("$key",'LIKE',"%$busca%")->with('category')->with('provider')->get();
 
+ 
         if($rtn->count() > 0){
             
             echo json_encode(["status"=>true,"msg"=>'Achamos!', "rtn"=> $rtn]);exit; 
@@ -185,20 +207,26 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function rtnFloat($number){
+        $temp = str_replace(',', '.', str_replace('.', '', $number));
+
+        return $temp;
+    }
     public function update(Request $request, $id)
     {   $data=$request->all();
-        if(isset($data['credito'])){$data['credito']= str_replace(',', '', str_replace('.', '', $data['credito']));}
-        if(isset($data['primeira_parcela_pf'])){$data['primeira_parcela_pf']= str_replace(',', '', str_replace('.', '', $data['primeira_parcela_pf']));}
-        if(isset($data['primeira_parcela_pj'])){$data['primeira_parcela_pj']= str_replace(',', '', str_replace('.', '', $data['primeira_parcela_pj']));}
+        if(isset($data['credito'])){$data['credito']= $this->rtnFloat($data['credito']);}
+
+        if(isset($data['primeira_parcela_pf'])){$data['primeira_parcela_pf']= $this->rtnFloat($data['primeira_parcela_pf']);}
+        if(isset($data['primeira_parcela_pj'])){$data['primeira_parcela_pj']= $this->rtnFloat($data['primeira_parcela_pj']);}
 
         //condicoes valores
-        if(isset($data['condicao_um']['\'valor_parcela\''])){$data['condicao_um']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_um']['\'valor_parcela\'']));}
-        if(isset($data['condicao_dois']['\'valor_parcela\''])){$data['condicao_dois']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_dois']['\'valor_parcela\'']));}
-        if(isset($data['condicao_tres']['\'valor_parcela\''])){$data['condicao_tres']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_tres']['\'valor_parcela\'']));}
+        if(isset($data['condicao_um']['\'valor_parcela\''])){$data['condicao_um']['\'valor_parcela\'']= $this->rtnFloat($data['condicao_um']['\'valor_parcela\'']);}
+        if(isset($data['condicao_dois']['\'valor_parcela\''])){$data['condicao_dois']['\'valor_parcela\'']= $this->rtnFloat($data['condicao_dois']['\'valor_parcela\'']);}
+        if(isset($data['condicao_tres']['\'valor_parcela\''])){$data['condicao_tres']['\'valor_parcela\'']= $this->rtnFloat($data['condicao_tres']['\'valor_parcela\'']);}
 
-        if(isset($data['condicao_um_pj']['\'valor_parcela\''])){$data['condicao_um_pj']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_um_pj']['\'valor_parcela\'']));}
-        if(isset($data['condicao_dois_pj']['\'valor_parcela\''])){$data['condicao_dois_pj']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_dois_pj']['\'valor_parcela\'']));}
-        if(isset($data['condicao_tres_pj']['\'valor_parcela\''])){$data['condicao_tres_pj']['\'valor_parcela\'']= str_replace(',', '', str_replace('.', '', $data['condicao_tres_pj']['\'valor_parcela\'']));}
+        if(isset($data['condicao_um_pj']['\'valor_parcela\''])){$data['condicao_um_pj']['\'valor_parcela\'']= $this->rtnFloat($data['condicao_um_pj']['\'valor_parcela\'']);}
+        if(isset($data['condicao_dois_pj']['\'valor_parcela\''])){$data['condicao_dois_pj']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_dois_pj']['\'valor_parcela\'']);}
+        if(isset($data['condicao_tres_pj']['\'valor_parcela\''])){$data['condicao_tres_pj']['\'valor_parcela\'']=$this->rtnFloat($data['condicao_tres_pj']['\'valor_parcela\'']);}
 
 
         $car = Car::findOrFail($id);
