@@ -16,4 +16,8 @@ class Provider extends Model
     public function providers_consorcios(){
         return $this->hasMany(Car::class, 'id_providers', 'id');
     }
+
+    public function bens(){
+        return $this->hasMany(Theme::class, 'id_providers', 'id');
+    }
 }

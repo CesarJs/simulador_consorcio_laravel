@@ -36,5 +36,17 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\ProviderRepository',
             'App\Repositories\ProviderRepositoryEloquent'
             );
+        $this->app->bind(
+            'App\Repositories\PlanRepository',
+            'App\Repositories\PlanRepositoryEloquent'
+            );
+        $this->app->bind(
+            'App\Repositories\ThemeRepository',
+            'App\Repositories\ThemeRepositoryEloquent'
+            );
+        $this->app->bind(
+            'App\Repositories\ProductRepository',
+            'App\Repositories\ProductRepositoryEloquent'
+            );
     }
 }

@@ -44,6 +44,38 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+                        <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Administrar Planos <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('plans.index') }}" >
+                                            Página Inicial
+                                        </a>   
+                                        <a href="{{ route('plans.create') }}" >
+                                            Cria novo
+                                        </a>                                       
+                                    </li>
+                                </ul>
+                            </li>
+                        <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Administrar Bens <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('themes.index') }}" >
+                                            Página Inicial
+                                        </a>   
+                                        <a href="{{ route('themes.create') }}" >
+                                            Cria novo
+                                        </a>                                       
+                                    </li>
+                                </ul>
+                            </li>
                          <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     Administrar Consórcios <span class="caret"></span>
@@ -51,10 +83,10 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('cars.index') }}" >
+                                        <a href="{{ route('products.index') }}" >
                                             Página Inicial
                                         </a>   
-                                        <a href="{{ route('cars.create') }}" >
+                                        <a href="{{ route('products.create') }}" >
                                             Cria novo
                                         </a>                                       
                                     </li>

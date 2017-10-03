@@ -20,11 +20,9 @@
                                             <th>1ª parcela <br> Pessoa Fisica</th>
                                             <th>Condição 1</th>
                                             <th>Condição 2</th>
-                                            <th>Condição 3</th>
                                             <th>1ª parcela <br> Pessoa Juridica</th>
                                             <th>Condição 1</th>
-                                            <th>Condição 2</th>
-                                            <th>Condição 3</th>
+                                            <th>Condição 2</th>                
                                         </tr>
                                     </thead> 
                                     <tfoot>
@@ -35,19 +33,18 @@
                                             <th>1ª parcela <br> Pessoa Fisica</th>
                                             <th>Condição 1</th>
                                             <th>Condição 2</th>
-                                            <th>Condição 3</th>
                                             <th>1ª parcela <br> Pessoa Juridica</th>
                                             <th>Condição 1</th>
                                             <th>Condição 2</th>
-                                            <th>Condição 3</th>
+
                                         </tr>
                                     </tfoot> 
                                     <tbody id="tableResults">
                                         @foreach($resultados as $consorcio)
                                         <tr>
-                                            <td><small>{{$consorcio->codigo}}</small></td> 
-                                            <td><small>{{$consorcio->descricao_do_bem}}</small></td> 
-                                            <td><small>{{number_format($consorcio->credito,2,',','.')}}</small></td> 
+                                            <td><small>{{$consorcio->bem->codigo}}</small></td> 
+                                            <td><small>{{$consorcio->bem->description}}</small></td> 
+                                            <td><small>{{number_format($consorcio->bem->credito,2,',','.')}}</small></td> 
                                             <td><small>{{number_format($consorcio->primeira_parcela_pf,2,',','.')}}</small></td> 
                                             <td><small>
                                             @if($consorcio->um_pf)
@@ -63,13 +60,7 @@
                                             X
                                             @endif
                                             </small></td> 
-                                            <td><small>
-                                            @if($consorcio->tres_pf)
-                                            {{$consorcio->tres_pf->name}} de {{number_format($consorcio->tres_pf->valor_parcela,2,',','.')}}
-                                            @else
-                                            X
-                                            @endif
-                                            </small></td> 
+                                            
 
                                             <!-- pj-->
                                             <td><small>{{number_format($consorcio->primeira_parcela_pj,2,',','.')}}</small></td> 
@@ -87,13 +78,7 @@
                                             X
                                             @endif
                                             </small></td> 
-                                            <td><small>
-                                            @if($consorcio->tres_pj)
-                                            {{$consorcio->tres_pj->name}} de {{number_format($consorcio->tres_pj->valor_parcela,2,',','.')}}
-                                            @else
-                                            X
-                                            @endif
-                                            </small></td> 
+                                             
                                             
                                         </tr>
                                         @endforeach
@@ -235,15 +220,9 @@
             hide_min_max: true,
             keyboard: true,
             min: 0,
-            max: 500000,
-            @if($_GET['range'])
-            <?php $temp = explode(';', $_GET['range']) ?>
-            from: {{$temp[0]}},
-            to: {{$temp[1]}},
-            @else
+            max: 500000,            
             from: 0,
             to: 50000,
-            @endif
             type: 'double',
             step: 1,
             prefix: "R$: ",
@@ -258,10 +237,10 @@
         $("#range").ionRangeSlider({
             hide_min_max: true,
             keyboard: true,
-            min: (min - 200),
-            max: (max + 200),
-            from: min,
-            to: max,
+            min: (min.toFixed(2) - 1000),
+            max: (max.toFixed(2) + 1000),
+            from: min.toFixed(2),
+            to: max.toFixed(2),
             type: 'double',
             step: 1,
             prefix: "R$: ",

@@ -15,4 +15,7 @@ class Category extends Model
     public function category_consorcios(){
         return $this->hasMany(Car::class, 'id_category', 'id');
     }
+    public function bens(){
+        return $this->hasMany(Theme::class, 'id_category', 'id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Repositories\CarRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProviderRepository;
 use App\Car;
+use App\Product;
 use App\Category;
 use App\Provider;
 use App\Condition;
@@ -169,18 +170,24 @@ class CarsController extends Controller
     }
     public function retornaValoresLimite(Request $request){
         $data = $request->all();
-        $cars = Car::all();
+
+        $cat = $data['cat'];
+        $cars  = Product::whereHas('bem', function ($query) use ($cat) {
+                        $query->where('category_id',  $cat);
+                    })->get();
+
+
         switch ($data['keyTipo']) {
             case 'credito':
                 $rtn = [
-                    'min'=>$cars->where('category_id',$data['cat'])->min('credito'),
-                    'max'=>$cars->where('category_id',$data['cat'])->max('credito')
+                    'min'=>$cars->min('credito'),
+                    'max'=>$cars->max('credito')
                     ];
                 break;
             case 'parcela':
                 $rtn =[
-                    'min' => $cars->where('category_id',$data['cat'])->min('primeira_parcela_pj'),
-                    'max' => $cars->where('category_id',$data['cat'])->max('primeira_parcela_pj')
+                    'min' => $cars->min('primeira_parcela_pj'),
+                    'max' => $cars->max('primeira_parcela_pj')
                 ];
                 break;
             default:
