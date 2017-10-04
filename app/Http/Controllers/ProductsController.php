@@ -44,6 +44,24 @@ class ProductsController extends Controller
         $data = $request->all();
         $categoria = $data['categoria'];
         $valores = explode(';', $data['range']);
+
+
+        if($data['inputContato'] == 'on'){
+
+            $dados=array(
+                "name"=> $data['inputName'],
+                "email"=> $data['inputEmail'],
+                "tel"=> $data['inputTelefone'],
+                "cep"=> $data['inputCep'],
+                );
+            $destinatario=env('EMAIL_DEFAULT_CONTATO');
+            $destinatarioName='Mensagem Automatica';
+            $template="contato";
+            $assunto="Pedido de Contato :: Site!";
+
+
+            $enviar = EmailsController::enviarEmail($dados,$destinatario,$destinatarioName,$template,$assunto);
+        }
         switch ($data['keyTipo']) {
             case 'credito':
                 # code...
