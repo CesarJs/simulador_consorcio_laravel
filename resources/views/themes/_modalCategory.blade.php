@@ -70,7 +70,7 @@
                                 </a>
                                 <div class="row" style="display: none;" id="hide-{{$category->id}}">
                                   <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Novo nome" id="new-{{$category->id}}"> 
+                                    <input type="text" class="form-control" required placeholder="Novo nome" id="new-{{$category->id}}"> 
                                     <input type="hidden" class="form-control" id="old-{{$category->id}}"> 
                                   </div>
                                   <div class="col-md-4">

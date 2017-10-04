@@ -1,11 +1,11 @@
 			
 			<div class="form-group col-xs-4">
 				{!! Form::label('codigo','Código:') !!}
-				{!! Form::text('codigo', null, ['class'=>'form-control']) !!}
+				{!! Form::text('codigo', null, ['class'=>'form-control','required'=>'true']) !!}
 			</div>
 			<div class="form-group col-xs-8">
 				{!! Form::label('description','Descrição:') !!}
-				{!! Form::text('description', null, ['class'=>'form-control','id'=>'description','onChange'=>'mudarDescription();']) !!}
+				{!! Form::text('description', null, ['class'=>'form-control','id'=>'description','onChange'=>'mudarDescription();','required'=>'true']) !!}
 			</div>
 			
 			<div class="form-group">
@@ -37,7 +37,7 @@
 			<div class="col-xs-12">
 				
 				{!! Form::label('credito','Crédito:') !!}
-				{!! Form::text('credito', null, ['class'=>'form-control moneyMask','id'=>'creditoInput']) !!}
+				{!! Form::text('credito', null, ['class'=>'form-control moneyMask','id'=>'creditoInput','required'=>'true']) !!}
 			</div>
 			</div>
 			

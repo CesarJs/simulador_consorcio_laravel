@@ -70,8 +70,8 @@
                                 </a>
                                 <div class="row" style="display: none;" id="hideProvider-{{$provider->id}}">
                                   <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Novo nome" value="{{$provider->name}}" id="newProvider-{{$provider->id}}"> 
-                                    <input type="text" class="form-control" placeholder="Novo Email" value="{{$provider->email}}" id="newEmailProvider-{{$provider->id}}"> 
+                                    <input type="text" class="form-control" required placeholder="Novo nome" value="{{$provider->name}}" id="newProvider-{{$provider->id}}"> 
+                                    <input type="text" class="form-control" required placeholder="Novo Email" value="{{$provider->email}}" id="newEmailProvider-{{$provider->id}}"> 
                                     <input type="hidden" class="form-control" id="oldProvider-{{$provider->id}}"> 
                                   </div>
                                   <div class="col-md-4">
