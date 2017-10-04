@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\ThemeRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProviderRepository;
-use App\theme;
+use App\Theme;
 use App\Category;
 use App\Provider;
 use App\Condition;
@@ -42,7 +42,9 @@ class ThemesController extends Controller
     {
         $categories = $this->categoryRepository->getCategories();
         $providers =  $this->providerRepository->getProviders();
-        return view('themes.create',compact('categories','providers'));
+        $providersAll =  $this->providerRepository->all();
+        $categoriesAll =  $this->categoryRepository->all();
+        return view('themes.create',compact('categories','providers','providersAll','categoriesAll'));
     }
 
     /**

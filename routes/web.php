@@ -20,6 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/buscar', 'ProductsController@buscar')->name('buscar');
+Route::get('/api/buscar', 'ProductsController@apiBusca')->name('api.busca');
+
 Route::get('/valoresIndex', 'CarsController@retornaValoresLimite')->name('rtnValores');
 
 
@@ -32,6 +34,21 @@ Route::group(['prefix' => 'cars','middleware'=>'auth','as' => 'cars.'], function
 	Route::post('/destroy', 'CarsController@destroy')->name('destroy');
 	Route::get('/buscarIndex/{key}/{busca}','CarsController@find')->name('find');
 	});
+
+
+Route::group(['prefix' => 'categories','middleware'=>'auth','as' => 'categories.'], function(){
+	Route::post('/store', 'CategoriesController@store')->name('store');
+	Route::get('/{id}/edit', 'CategoriesController@edit')->name('edit');
+	Route::get('/categoryAlter/{id}/{newCat}', 'CategoriesController@categoryAlter')->name('categoryAlter');
+	});
+
+Route::group(['prefix' => 'providers','middleware'=>'auth','as' => 'providers.'], function(){
+	Route::post('/store', 'ProvidersController@store')->name('store');
+	Route::post('/storeMax', 'ProvidersController@store')->name('storeMax');
+	Route::get('/{id}/edit', 'ProvidersController@edit')->name('edit');
+	Route::get('/providerAlter/{id}/{newProvider}/{newEmailProvider}', 'ProvidersController@providerAlter')->name('provideryAlter');
+	});
+
 
 Route::resource('plans', 'PlansController')->middleware('auth');
 Route::group(['prefix' => 'plans','middleware'=>'auth','as' => 'plans.'], function(){

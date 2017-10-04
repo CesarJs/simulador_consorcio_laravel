@@ -65,6 +65,32 @@ class ProductsController extends Controller
         return view('resultados',compact('resultados'),['categoria'=>$data['categoria']]);
         
     }
+
+    public function apiBusca(Request $request){
+        $data = $request->all();
+        $categoria = $data['categoria'];
+        $valores = explode(';', $data['range']);
+        switch ($data['keyTipo']) {
+            case 'credito':
+                # code...
+                $resultados = Product::whereBetween('credito', $valores)->whereHas('bem', function ($query) use ($categoria){    
+                        $query->where('category_id', $categoria);
+                    })->with(['bem','plano'])->get();//->where('category_id',$data['categoria'])->get();
+                break;
+            case 'parcela':
+                # code...
+                $resultados = Product::whereBetween('primeira_parcela_pf', $valores)->whereHas('bem', function ($query) use ($categoria){
+                        $query->where('category_id',  $categoria);
+                    })->with(['bem','plano'])->get();
+                break;
+            default:
+                # code...
+                break;
+        }
+        
+        
+        return $resultados;
+    }
     public function create()
     {
         //
